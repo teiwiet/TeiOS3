@@ -1,46 +1,22 @@
 org 0x7c00 
 bits 16 
-
 section code
-init:
-	mov eax,0xb800
-	mov es,eax 
-	xor eax,eax
-	xor ebx,ebx
-	xor ecx,ecx
-	xor dl,dl
-clear:
-	mov byte[es:eax],0x0 
-	inc eax
-	mov byte[es:eax],0xb0 
-	inc eax 
-	cmp eax,2*25*80 
-	jl clear 
-call print
-jmp switch
-print_end:
-	ret
-print:
-	mov eax,text
-	mov dl,byte[eax+ebx]
-	mov byte[es:ecx],dl
-	inc ecx 
-	inc ecx 
-	inc ebx
-	cmp dl,0 
-	je print_end
-	jmp print
-
-end:
-jmp $
 
 switch:
+	mov bx,0x1000 	; location where the code is loaded from hard disk 
+	mov ah,0x02 
+	mov al,30  	; the number of the sectors to read from hard disk 
+	mov ch,0x00 
+	mov dh,0x00 
+	mov cl,0x02 
+	int 0x13
+
 	cli 
 	lgdt [gdt_descriptor]
 	mov eax,cr0
 	or eax,0x1
 	mov cr0,eax 
-	jmp protected_start
+	jmp code_seg:protected_start
 [bits 32] 
 protected_start:
 	mov ax,data_seg 
@@ -54,6 +30,7 @@ protected_start:
 	mov ebp,0x90000
 	mov esp,ebp
 	
+	call 0x1000
 	jmp $
 gdt_begin:
 gdt_null:
