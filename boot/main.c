@@ -6,4 +6,5 @@ int start(){
 		*(video_memory + i) = 0;
 		*(video_memory + i+1) = 0xB0;
 	}
+	*(video_memory+1) = 0x80;
 }
