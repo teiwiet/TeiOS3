@@ -1,3 +1,4 @@
+
 char* video_memory;
 
 int start(){
