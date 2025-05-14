@@ -1,19 +1,34 @@
 [bits 16] 
 [org 0x7c00] 
 switch:
-	mov bx,0x1000 		; location where the code load from hard disk
+	mov ax,0x4f01 			
+	mov cx,0x117
+	mov bx,0x0800 
+	mov es,bx 
+	mov di,0x00
+	int 0x10
+	; make the switch to graphics mode 
+	mov ax,0x4f02 
+	mov bx,0x117 
+	int 0x10
+	
+	xor ax,ax 
+	mov ds,ax 
+	mov es,ax 
+
+	mov bx,0x1000 			; location where the code load from hard disk
 	mov ah,0x02 
-	mov al,30 		; number of sector to read from hard disk 
+	mov al,1				; number of sector to read from hard disk 
 	mov ch,0x00
 	mov dh,0x00
 	mov cl,0x02
 	int 0x13
 
-	cli  			; clear the the interrupt
+	cli  					; clear the the interrupt
 	lgdt[gdt_descriptor] 	; load the address to GDTR register 
 	mov eax,cr0 
 	or eax,1
-	mov cr0,eax		; make the switch
+	mov cr0,eax				; make the switch
 	jmp code_seg:protected_start 
 [bits 32]
 protected_start:
