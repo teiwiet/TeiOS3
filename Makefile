@@ -9,6 +9,7 @@ all:
 	objcopy -O binary -j .text boot/bin/kernel.img boot/bin/kernel.bin
 	cat boot/bin/boot.bin boot/bin/kernel.bin > os.img
 clean:
+	rm os.img
 	rm boot/bin/*
 run:
 	$(qemu) -drive format=raw,file=os.img

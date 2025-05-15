@@ -3,8 +3,12 @@
 switch:
 	mov ax,0x4f01 			
 	mov cx,0x117
-	mov bx,0x0800 
-	mov es,bx 
+	push dx 
+	push dx
+	xor dx,dx 
+	mov dx,0x0800
+	mov es,dx 
+	pop dx
 	mov di,0x00
 	int 0x10
 	; make the switch to graphics mode 

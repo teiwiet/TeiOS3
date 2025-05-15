@@ -1,4 +1,4 @@
-typedef struct VBEInforBlockStruct{
+typedef struct VBEInfoBlockStruct{
 	unsigned short mode_attribute;
 	unsigned char win_a_attribute;
 	unsigned char win_b_attribute;
@@ -29,10 +29,21 @@ typedef struct VBEInforBlockStruct{
 	unsigned char reserved_field_position;
 	unsigned char direct_color_info;
 	unsigned int screen_ptr;
-} VBEInforBlock;
+} VBEInfoBlock;
 #define VBEInforAddress 0x8000
-VBEInforBlock* gVBE;
-char* video_memory;
+VBEInfoBlock* gVBE;
+// R-4bits
+// G-5bits
+// B-4bits
+int rgb(int r,int g,int b){
+	r = (int)(r/3);
+	g = (int)(g/2);
+	b = (int)(b/3);
+	return r<<11|g<<5|b;
+}
 int start(){
-	gVBE = (VBEInforBlock*) VBEInforAddress;
+	gVBE = (VBEInfoBlock*)VBEInforAddress;
+	for(int i = 0;i<gVBE->x_resolution*gVBE->y_resolution;i++){
+		*((unsigned int*)gVBE->screen_ptr + i) = rgb(0,255,0);
+	}
 }
