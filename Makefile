@@ -3,7 +3,7 @@ qemu = qemu-system-x86_64
 all:
 	nasm boot/boot.asm -f bin -o boot/bin/boot.bin
 	nasm boot/kernel_entry.asm -f elf -o boot/bin/kernel_entry.bin
-	gcc boot/main.c -m32 -ffreestanding -c  -o boot/bin/kernel.o
+	gcc boot/final.c -m32 -ffreestanding -c  -o boot/bin/kernel.o
 	ld -m elf_i386 -o boot/bin/kernel.img -Ttext 0x1000 boot/bin/kernel_entry.bin boot/bin/kernel.o
 
 	objcopy -O binary -j .text boot/bin/kernel.img boot/bin/kernel.bin
