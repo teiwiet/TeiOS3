@@ -48,18 +48,18 @@ gdt_begin:
 gdt_null:
 	dd 0x00 
 	dd 0x00 
-gdt_code_seg:
+gdt_code_seg: 			; code_seg offset : 0x8
 	dw 0xffff 
 	dw 0x00 
 	db 0x00 
-	db 10011010b
+	db 10011010b		; access byte : 0x9a 
 	db 11001111b
 	db 0x00 
-gdt_data_seg:
+gdt_data_seg:			; data_seg offset : 0x10
 	dw 0xffff 
 	dw 0x00 
 	db 0x00 
-	db 10010010b
+	db 10010010b		; access byte : 0x92 
 	db 11001111b
 	db 0x00 
 gdt_end:
