@@ -39,9 +39,13 @@ typedef struct VBEInfoBlockStruct{
 	uint16_t off_screen_mem_size;	// size of memory in the framebuffer but not being displayed on the screen
 	uint8_t reserved1[206];
 } VBEInfoBlock;
+extern const int font_arial_width;
+extern const int font_arial_height;
 
+int getArialCharacter(int index, int y);
 int rgb(int r,int g,int b);
 void Draw(int x,int y,int r,int g,int b);
 void ClearScreen(int r,int g,int b);
 void DrawRect(int x,int y,int width,int height,int r,int g,int b);
+void DrawCharacter();
 #endif

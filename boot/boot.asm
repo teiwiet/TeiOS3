@@ -18,7 +18,7 @@ switch:
 
 	mov bx,0x1000 			; location where the code load from hard disk
 	mov ah,0x02 
-	mov al,1				; number of sector to read from hard disk 
+	mov al,21				; number of sector to read from hard disk 
 	mov ch,0x00
 	mov dh,0x00
 	mov cl,0x02

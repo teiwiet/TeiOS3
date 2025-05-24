@@ -1,5 +1,6 @@
 int getArialCharacter(int index, int y) {
-unsigned int characters_arial_0[][150] = {	{
+unsigned int characters_arial_0[][150] = {	
+	{
 		0b0000000000,
 		0b0000000000,
 		0b0000000000,
@@ -221,7 +222,8 @@ unsigned int characters_arial_0[][150] = {	{
 		0b0000000000,
 	},
 };//################################################################################
-unsigned int characters_arial_1[][150] = {	{
+unsigned int characters_arial_1[][150] = {	
+	{
 		0b0000000000,
 		0b0000000000,
 		0b0000000000,
