@@ -68,7 +68,6 @@ gdt_descriptor:
 	dd gdt_begin 
 code_seg equ gdt_code_seg - gdt_begin 
 data_seg equ gdt_data_seg - gdt_begin 
-text: db "hello world",0
 times 510-($-$$) db 0 
 db 0x55 
 db 0xaa
