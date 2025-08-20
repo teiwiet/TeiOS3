@@ -1,7 +1,9 @@
+#include <stddef.h>
 #include<stdint.h>
 #ifndef GRAPHICS_H 
 #define GRAPHICS_H
 #define VBEInfoAddress ((VBEInfoBlock*)0x8000)
+#define ScreenBufferAddress 0xffff0
 typedef struct VBEInfoBlockStruct{
 	uint16_t attributes;		// deprecated, only bit 7 should be of interest to you, and it indicates the mode supports a linear frame buffer.
 	uint8_t window_a;			// deprecated
@@ -48,4 +50,6 @@ void Draw(int x,int y,int r,int g,int b);
 void ClearScreen(int r,int g,int b);
 void DrawRect(int x,int y,int width,int height,int r,int g,int b);
 void DrawCharacter(int (*f)(int,int),int x,int y,char character,int font_width,int font_height,int r,int g,int b);
+void DrawString(int (*f)(int,int),int x,int y,char* string,int font_width,int font_height,int r,int g,int b);
+void Flush();
 #endif

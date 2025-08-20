@@ -8,8 +8,9 @@ int rgb(int r,int g,int b){
 
 void Draw(int x,int y,int r,int g,int b){
 	VBEInfoBlock* VBE = VBEInfoAddress;
+	unsigned short* buffer = (unsigned short*)ScreenBufferAddress;
 	int index = y*VBE->width + x;
-	*((unsigned short*) VBE->framebuffer + index) = rgb(r,g,b);
+	*(buffer + index) = rgb(r,g,b);
 }
 
 void ClearScreen(int r, int g, int b){
@@ -44,3 +45,31 @@ void DrawCharacter(int (*f)(int,int),int x,int y,char character,int font_width,i
 		}
 	}
 };
+
+void DrawString(int (*f)(int,int),int x,int y,char* string,int font_width,int font_height,int r,int g,int b){
+	int i = 0,j = 0;
+	for(int k = 0;*(string+k)!=0;k++){
+		if(*(string+k)!='\n'){
+			DrawCharacter(f,x+i,y+j,*(string+k),font_width,font_height,r,g,b);
+		}	
+		i += font_width - (font_width/5);
+		if(*(string + k)=='\n'){
+			i = 0;
+			y += font_height;
+		}
+	}
+};
+void* memcpy(void* dest, const void* src, size_t n) {
+    unsigned char* d = (unsigned char*)dest;
+    const unsigned char* s = (const unsigned char*)src;
+    while (n--) {
+        *d++ = *s++;
+    }
+    return dest;
+}
+
+void Flush(){
+	VBEInfoBlock* VBE = VBEInfoAddress;
+	unsigned short* buffer = (unsigned short*)ScreenBufferAddress;
+	memcpy((unsigned short*)VBE->framebuffer,buffer,VBE->width*VBE->height*sizeof(unsigned short));
+}
