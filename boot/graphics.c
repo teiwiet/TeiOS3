@@ -1,9 +1,6 @@
 #include "graphics.h"
 int rgb(int r,int g,int b){
-	// r = (int)(r/3);
-	// g = (int)(g/2);
-	// b = (int)(b/3);
-	return r<<11|g<<5|b;
+		return r<<11|g<<5|b;
 }
 
 void Draw(int x,int y,int r,int g,int b){
